@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <style>
+        #main {
+            margin: auto;
+            margin-top: 30%;
+            border: 1px solid crimson;
+            width: 80%;
+            height: 300px;
+        }
+
+        #pic {
+            position: relative;
+            top: calc(100% - 90px);
+        }
+
+        @keyframes move {
+            0% {
+                top: 210px;
+            }
+
+            60% {
+                top: 130px;
+            }
+
+            70% {
+                top: 130px;
+            }
+
+            100% {
+                top: 210px;
+            }
+        }
+
+        #enemy {
+            float: right;
+            position: relative;
+            top: 270px;
+            width: 30px;
+            height: 30px;
+            background-color: darkgreen;
+            animation: kak 1500ms infinite linear;
+        }
+
+        @keyframes kak {
+            0% {
+                right: 0px;
+            }
+
+            100% {
+                right: 520px;
+            }
+        }
+
+        #score {
+            display: inline;
+            float: right;
+            width: 80px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body bgcolor="aqua">
+    <div id="main">
+        <h2 id="score">000000</h2>
+        <img src="kosar.png" width="120px" id="pic">
+        <div id="enemy"></div>
+    </div>
+
+    <script>
+
+        const div = document.getElementById("main");
+        const pic = document.getElementById("pic");
+        const kak = document.getElementById("enemy");
+        const score = document.getElementById("score");
+
+        div.addEventListener('click', function () {
+            pic.setAttribute("style", "animation: move 1s;");
+            setTimeout(() => {
+                pic.removeAttribute("style")
+            }, 1000);
+        });
+
+        setInterval(() => {
+            let pic_top = window.getComputedStyle(pic).getPropertyValue("top")
+            let kak_right = window.getComputedStyle(kak).getPropertyValue("right")
+            if (parseInt(pic_top) >= 180 && parseInt(kak_right) >= 400) {
+                alert("Geme Over !!!")
+                location.reload();
+            }
+        }, 10);
+
+        var sc = 0;
+        var num = "";
+        setInterval(() => {
+            num = sc < 10 ? "00000" + sc :
+                  sc < 100 ? "0000" + sc :
+                  sc < 1000 ? "000" + sc :
+                  sc < 10000 ? "00" + sc :
+                  sc < 100000 ? "0" + sc : sc;
+            score.innerHTML = num;
+            sc += 1;
+        }, 80);
+    </script>
+</body>
+
+</html>
