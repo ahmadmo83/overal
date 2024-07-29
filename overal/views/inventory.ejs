@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Inventory</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        #tog {
+            box-sizing: border-box;
+            background-color: rgb(128, 128, 128);
+            padding: 10px;
+            text-align: end;
+            margin-block-start: 5px;
+            margin-block-end: 2px;
+        }
+
+        #tog:hover {
+            background-color: rgb(39, 39, 39);
+            color: antiquewhite;
+        }
+
+        button {
+            margin: 5px;
+        }
+
+        #tog,
+        .table {
+            box-shadow: 2px 2px 20px black;
+        }
+
+        /* .table-responsive{
+        box-shadow: 2px -8px 20px black;
+    } */
+        ::placeholder{
+            color: aliceblue;
+        }
+        .input-add {
+            margin: 5px;
+            background-color: #c65bcf;
+            text-align: center;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+            color: aliceblue;
+            
+            inline-size: calc(100% - 20px);
+            block-size: 40px;
+            
+        }
+
+        .modal-body {
+            background-color: #8f33f9;
+        }
+
+        .form-add {
+            background-color: rgba(255, 255, 255, 0.13);
+            text-align: center;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+            padding: 5px 3px;
+        }
+
+        .modal-body form button {
+            inline-size: calc(100% - 20px);
+            block-size: 40px;
+            color: aliceblue;
+            background-color: #10439f;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+            
+        } 
+        .modal-header{
+            color: aliceblue;
+            background-color: #10439f;
+            justify-content: center;
+        }
+        select{
+            inline-size: calc(100% - 20px);
+            block-size: 40px;
+        }
+    </style>
+</head>
+
+<body style="background-color: rgb(33, 56, 117);">
+
+    <div class="container" dir="rtl">
+        <button class="btn btn-outline-light btn-md" data-bs-toggle="modal" data-bs-target="#modalAdd">
+            <i class="bi bi-plus-lg"></i>کالا جدید</button>
+        <button class="btn btn-outline-light btn-md" data-bs-toggle="modal" data-bs-target="#modalAddCat">
+            <i class="bi bi-folder-plus"></i>دسته بندی جدید</button>
+    </div>
+
+    <div class="modal fade" id="modalAdd">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                   <h5> اضافه کردن کالا </h5>
+                </div>
+                <div class="modal-body" style="padding: 30px;">
+                    <form action="/inven?from=add" dir="rtl" class="form-add" method="post">
+                        <input class="input-add" type="text" name="name" placeholder="نام کالا">
+                        <input class="input-add" type="number" name="code" placeholder="کد کالا">
+                        <select class="input-add" name="cat" id="">
+                            <% for(category of categorys) { %>
+                           <option value="<%= category.name %>" style="background-color: aliceblue; color: black;"><%= category.name %></option>
+                            <% } %>
+                        </select>
+                        <input class="input-add" type="text" name="description" placeholder="توضیحات">
+                        <br><button type="submit">تایید</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAddCat">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                   <h5> اضافه کردن دسته بندی جدید </h5>
+                </div>
+                <div class="modal-body" style="padding: 30px;">
+                    <form action="/inven?from=addCat" dir="rtl" class="form-add" method="post">
+                        <input class="input-add" type="text" name="name" placeholder="نام دسته بندی جدید">
+                        <br><button type="submit">تایید</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% for(category of categorys) { %>
+    <div class="container">
+        <div id="tog" data-bs-toggle="collapse" data-bs-target="#tb<%= category.id %>">
+            <i class="bi bi-chevron-down" style="float: inline-start;"></i>
+            <%= category.name %>
+        </div>
+        <div class="table-responsive collapse" id="tb<%= category.id %>">
+            <table class="table table-striped" dir="rtl">
+                <thead>
+                    <tr>
+                        <th>شماره</th>
+                        <th>نام</th>
+                        <th>کد اموال</th>
+                        <th>توضیحات</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(coulom of couloms) { %>
+                        <% if(coulom.cat == category.name) { %>
+                            <tr>
+                                <td class="col-sm-1"> <%= coulom.id %> </td>
+                                <td class="col-sm-2"> <%= coulom.name %> </td>
+                                <td class="col-sm-1"> <%= coulom.code %> </td>
+                                <td class="col-sm-*"> <%= coulom.description %> </td>
+                                <td class="col-sm-*">
+                                    <div class="container" style="display: inline;">
+                                    <button class="btn btn-outline-dark btn-sm"><i class="bi bi-pencil-square"></i></button>
+                                    <form action="/inven?from=del&id=<%= coulom.id %>" method="post">
+                                        <button class="btn btn-outline-dark btn-sm"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                     </div>
+                                </td>
+                            </tr>
+                    <% }} %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <% } %>
+</body>
+
+</html>
