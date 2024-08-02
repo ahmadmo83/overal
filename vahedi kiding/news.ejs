@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vahedi News</title>
+    <link rel="shortcut icon" href="uploads/icon.jpg">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #b48bff;
+            color: #333;
+        }
+
+        header {
+            position: relative;
+            height: 400px;
+            /* ارتفاع دلخواه */
+    
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .one{
+            background: url('uploads/vah.jpg') no-repeat center center;
+            background-size: cover;
+            
+        }
+        .two{
+            background: url('uploads/ah2.jpg') no-repeat center center;
+            background-size: cover;
+        }
+        .two .intro{
+            background: linear-gradient(to right, black, rgba(255, 0, 0, 0));
+        }
+        .two .text_intro{
+           float: left;
+        }
+        .three{
+            background: url('uploads/abdol.jpg') no-repeat center center;
+            background-size: cover;
+        }
+        .intro {
+            background: linear-gradient(to left, black, rgba(255, 0, 0, 0));
+            /* padding: 20px; */
+            /* border-radius: 8px; */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .text_intro {
+            width: 50%;
+            float: right;
+        }
+
+        .intro h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .intro p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .news {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .news article {
+            direction: rtl;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news article:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .news img {
+            width: 120px;
+            height: auto;
+            border-radius: 8px;
+            margin-left: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .news img:hover {
+            transform: scale(1.05);
+        }
+
+        .news div {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .news h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+            color: #ff0000;
+            transition: color 0.3s ease;
+        }
+
+        .news h2:hover {
+            color: #0056b3;
+        }
+
+        .news p {
+            margin: 0;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                height: 350px;
+                /* padding: 10px; */
+            }
+
+            .intro {
+                padding: 15px;
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            .text_intro{
+                margin: 25px 10px;
+                width: 60%;
+            }
+
+            .news article {
+                flex-direction: row;
+                text-align: center;
+            }
+
+            .news img {
+                margin: 0 0 10px 0;
+                max-width: 80%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="one">
+        <div class="intro">
+            <div class="text_intro">
+                <h1 style="color: red;"> واحدی نیوز </h1>
+                <p> بد ترین اخبار عمرتان را با ما تجربه کنید <br> وابسته به نهاد های امنیتی و سپاه <br> از طرفداران سرسخت احمدی نژاد <br> (مدیر تولید جناب واحدی)
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <header class="two">
+        <div class="intro">
+            <div class="text_intro">
+                <h1 style="color: red;"> اسکل و پَلَشت قَرن </h1>
+                <p> .با پاهایی فراتر از حد تصور <br> وابسته به دستگاه امنیتی خویش با پارکینگ مجزا و طویل <br> (دستیار کارگردان جناب احمدی)
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <header class="three">
+        <div class="intro">
+            <div class="text_intro">
+                <h1 style="color: red;"> محبوب دل ها </h1>
+                <p> عشق باورنکردنی پناهی <br> حامی جنبش قهوه ای <br> قادر به جذب تمام اقشار جامعه <br> مربی حلقه و خواننده کتاب حضرت حجت <br> (تهیه کننده جناب کلهر)
+                </p>
+            </div>
+        </div>
+    </header>
+ <h3 style="text-align: center; color: black; font-size: x-large;"> سر خط خبر ها </h3>
+    <main>
+        <section class="news">
+            <% for(news of list){ %>
+            <article>
+                <img src="uploads/<%=news.image%>" alt="خبر ۱">
+                <div>
+                    <h2> <%= news.title %> </h2>
+                    <p> <%= news.description %> </p>
+                </div>
+            </article>
+            <% } %>
+        </section>
+    </main>
+    <h3 style="text-align: center; color: black; font-size: x-large;"> اخبار خود را با ما به اشتراک بگذارید </h3>
+    <div dir="rtl" id="form">
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label for="title">عنوان:</label><br>
+            <input class="input" type="text" id="title" name="title" required><br>
+            <label for="description">توضیحات:</label><br>
+            <textarea class="input" id="description" name="description" required></textarea><br>
+            <label for="image">عکس:</label><br>
+            <input class="input" type="file" id="image" name="image" value="public/uploads/22.jpg" required><br>
+            <button type="submit">ارسال خبر</button>
+        </form>
+    </div>
+</body>
+<style>
+    #form {
+        color: aliceblue;
+        flex-direction: column;
+        /* display: flex; */
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(rgb(207, 20, 20), rgb(31, 31, 31));
+        margin: 20px;
+        /* position: relative; */
+        
+    }
+    #form button{
+        width: 83%;
+    }
+    .input{
+        /* position: relative;
+        right: 100px; */
+        margin: 5px;
+        width: 80%;
+        max-width: 90%;
+    }
+    #form label{
+        border-radius: 4px;
+        background-color: rgba(20, 20, 20, 0.5);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+        margin: 50px;
+    }
+</style>
+
+</html>
